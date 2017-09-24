@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="admin" extends="struts-default">
+	<interceptors>
+			<interceptor name="permission"
+				class="com.jixiaoguanli.struts.interceptor.PermissionInterceptor"></interceptor>
+			<interceptor-stack name="permissionStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="permission"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<action name="admin_*" class="adminAction" method="{1}">
+		   <result name="addAdminOk">/manager/right.jsp</result>
+		   <result name="noRoot">/manager/adminAdd.jsp?addmsg=1</result>
+		   <interceptor-ref name="permissionStack" /> 
+		</action>
+	</package>
+</struts>    

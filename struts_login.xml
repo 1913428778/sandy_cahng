@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="login" extends="struts-default">
+	
+		<global-results>
+			<result name="login">index.jsp</result>
+		</global-results>
+		<action name="login_*" class="loginAction" method="{1}">
+			<result name="WLoginSuccess" type="redirectAction" >
+			   <param name="actionName">position_doSearchPosition3</param>
+			   <param name="namespace">/position</param>
+			</result>
+			<result name="ALoginSuccess" type="redirect">/manager/index.jsp</result>
+			<result name="input">${input}</result>
+		     <result name="logOutOk">/index.jsp</result>
+		     
+		</action>
+	</package>
+</struts>    

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="question" extends="struts-default">
+		
+		<action name="question_*" class="com.jixiaoguanli.struts.action.QuestionAction"
+			method="{1}">
+			<result name="addQuestionOk" type="redirectAction">question_queryQuestionAll
+			</result>
+			<result name="queryQuestionAllOk">/manager/showAllQuestionInfo.jsp</result>
+			<result name="toUpdateQuestion">/manager/updateQuestion.jsp</result>
+			<result name="updateQuestionOk" type="redirectAction">question_queryQuestionAll?updatemsg=1
+			</result>
+			<result name="deleteQuestionOk" type="redirectAction">question_queryQuestionAll?demsg=1
+			</result>
+			<result name="likeQueryOk">/manager/showQuestionLike.jsp</result>
+			<result name="queryBypositionOk">/worker/exam.jsp</result>
+			<param name="pageSize">5</param>
+			<param name="pageNum">1</param>
+			<!-- <result name="error" type="redirectAction">
+				<param name="actionName">position_doSearchPosition3</param>
+				<param name="namespace">/position</param>
+			</result> -->
+			
+		</action>
+	</package>
+</struts>    

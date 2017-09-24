@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="worker" extends="struts-default">
+		<action name="worker_*" class="workerAction"  method="{1}">
+			<result name="workerAddOk" type="redirectAction">worker_workerQueryAll</result>
+			<result name="workerQueryOk" >/manager/workerManager.jsp</result>
+			<result name="queryWokerAllOk">/manager/showAllWorkerInfo.jsp</result>
+			<result name="toUpdateWorker">/manager/updateWorker.jsp</result>
+			<result name="updateWorkerOk" type="redirectAction">worker_workerQueryAll</result>
+			<result name="deleteWorkerOk" type="redirectAction">worker_workerQueryAll</result>
+			<result name="selfAssess">/worker/workerSelfAssess.jsp</result>
+			<result name="addSelfAssessOk" type="redirectAction">
+			   <param name="actionName">position_doSearchPosition3</param>
+			   <param name="namespace">/position</param>
+			</result>
+			<param  name="pageSize">5</param>
+			<param  name="pageNum">1</param>
+		</action>
+	</package>
+</struts>    

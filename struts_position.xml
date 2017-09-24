@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="position" extends="struts-default">
+	
+		<action name="position_*" class="positionAction" method="{1}">
+			<result name="searchPositionOk">/manager/workerAdd.jsp</result>
+			<result name="searchPositionOk2">/manager/questionAdd.jsp</result>
+			<result name="searchPositionOk3">/worker/workIndex.jsp</result>
+			 
+		</action>
+	</package>
+</struts>    

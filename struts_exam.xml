@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="exam" extends="struts-default">
+		<action name="exam_*" class="examAction" method="{1}">
+		   <result name="submitExamOk">/worker/examResult.jsp</result>
+		   <result name="showRightAnswerOk">/worker/showRightAnswer.jsp</result>
+		 <!--   <result name="error">/worker/workIndex.jsp</result> -->
+		 <!--  <interceptor-ref name="permissionStack" />  -->
+		</action>
+	</package>
+</struts>    

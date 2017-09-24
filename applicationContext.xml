@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+            default-autowire="byName" default-lazy-init="true">
+          
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+	  <!-- Transaction -->	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	<!-- 声明事务 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="*" propagation="SUPPORTS" read-only="false"/>
+		</tx:attributes>
+	</tx:advice>
+	<!-- 添加事务 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.jixiaoguanli.biz.*.* (..))" id="bizMethods"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="bizMethods"/>
+	</aop:config>
+	<!-- dao -->
+	<bean id="workerdao" class="com.jixiaoguanli.dao.daoImpl.WorkerDaoImpl">
+	   <property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="admindao" class="com.jixiaoguanli.dao.daoImpl.AdminDaoImpl">
+	   <property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="positiondao" class="com.jixiaoguanli.dao.daoImpl.PositionDaoImpl">
+	   <property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="questiondao" class="com.jixiaoguanli.dao.daoImpl.QuestionDaoImpl">
+	   <property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- biz -->
+	<bean id="workerbiz" class="com.jixiaoguanli.biz.bizImpl.WorkerBizImpl">
+	    <property name="workerdao" ref="workerdao"></property>
+	</bean>
+	<bean id="adminbiz" class="com.jixiaoguanli.biz.bizImpl.AdminBizImpl">
+	    <property name="admindao" ref="admindao"></property>
+	</bean>
+	<bean id="positionbiz" class="com.jixiaoguanli.biz.bizImpl.PositionBizImpl">
+	    <property name="positiondao" ref="positiondao"></property>
+	</bean>
+	<bean id="questionbiz" class="com.jixiaoguanli.biz.bizImpl.QuestionBizImpl">
+	    <property name="questiondao" ref="questiondao"></property>
+	</bean>
+	<!--action -->
+	<bean id="loginAction" class="com.jixiaoguanli.struts.action.LoginAction">
+	     <property name="workerbiz" ref="workerbiz"></property>
+	     <property name="adminbiz" ref="adminbiz"></property>
+	</bean>
+	<bean id="positionAction" class="com.jixiaoguanli.struts.action.PositionAction">
+	     <property name="positionbiz" ref="positionbiz"></property>
+	</bean>
+	<bean id="workerAction" class="com.jixiaoguanli.struts.action.WorkerAction">
+	     <property name="workerbiz" ref="workerbiz"></property>
+	</bean>
+	<bean id="questionAction" class="com.jixiaoguanli.struts.action.QuestionAction">
+	     <property name="questionbiz" ref="questionbiz"></property>
+	</bean>
+	<bean id="examAction" class="com.jixiaoguanli.struts.action.ExamAction">
+	     <property name="questionbiz" ref="questionbiz"></property>
+	     <property name="workerbiz" ref="workerbiz"></property>
+	</bean>
+	<bean id="jfreeChartAction" class="com.jixiaoguanli.struts.action.JfreeChartAction">
+	     <property name="workerbiz" ref="workerbiz"></property>
+	</bean>
+	<bean id="adminAction" class="com.jixiaoguanli.struts.action.AdminAction">
+	     <property name="adminbiz" ref="adminbiz"></property>
+	</bean>
+</beans>
